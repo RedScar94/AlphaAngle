@@ -6,7 +6,7 @@ from PIL import Image
 
 # Introductory text
 st.title("Alpha Angle")
-st.write("This application allows determining the hip flexion angle alpha from the seated position based on the beta angle, which is the angle between the neck and the x-axis in the xOz plane in the frontal view.")
+st.write("This application shows a simplistic model that allows determining the hip flexion angle alpha from the seated position based on the beta angle, which is the angle between the neck and the x-axis in the xOz plane in the frontal view.")
 
 # Slideshow images
 st.subheader("Representative diagrams of the flexion situation and the variation of angles")
