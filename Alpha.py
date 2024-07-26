@@ -9,49 +9,49 @@ st.title("Alpha Angle")
 st.write("This application allows determining the hip flexion angle alpha from the seated position based on the beta angle, which is the angle between the neck and the x-axis in the xOz plane in the frontal view.")
 
 # Slideshow images
-st.subheader("Slideshow Images")
+st.subheader("Representative diagrams of the flexion situation and the variation of angles")
 
 # Load the images
-images = ["alpha1.png","alpha2.png","alpha3.png","alpha4.png","alpha5.png","alpha6.png"]  # Replace with your own images
+images = ["alpha1.png", "alpha2.png", "alpha3.png", "alpha4.png", "alpha5.png", "alpha6.png"]  # Replace with your own images
 image_index = 0
 
 if 'image_index' not in st.session_state:
     st.session_state.image_index = 0
 
+def resize_image(image, size=(400, 400)):
+    return image.resize(size, Image.ANTIALIAS)
 
 def next_image():
     st.session_state.image_index = (st.session_state.image_index + 1) % len(images)
 
-
 def previous_image():
     st.session_state.image_index = (st.session_state.image_index - 1) % len(images)
-
 
 col1, col2, col3 = st.columns([1, 2, 1])
 with col1:
     if st.button("Previous"):
         previous_image()
 with col2:
-    st.image(images[st.session_state.image_index])
+    image = Image.open(images[st.session_state.image_index])
+    resized_image = resize_image(image)
+    st.image(resized_image)
 with col3:
     if st.button("Next"):
         next_image()
 
 # Parameter input
 st.subheader("Parameter Input")
-C = st.number_input("Neck length (C) in cm", min_value=0.0, max_value=100.0, value=6.0)
-A = st.number_input("Femoral length (A) in cm", min_value=0.0, max_value=100.0, value=42.0)
-tf_deg = st.number_input("Femoral torsion (tf) in degrees", min_value=0.0, max_value=360.0, value=25.0)
-CCD_deg = st.number_input("Cervico-diaphyseal angle (CCD) in degrees", min_value=0.0, max_value=360.0, value=120.0)
-HKS_deg = st.number_input("HKS in degrees", min_value=0.0, max_value=360.0, value=7.0)
-gamma_deg = st.number_input("Abduction/adduction angle (gamma) in degrees", min_value=-180.0, max_value=180.0,
-                            value=0.0)
-angle_lim_deg = st.number_input("Limit angle in degrees", min_value=0.0, max_value=360.0, value=10.0)
-psi_deg = st.number_input("Psi angle in degrees", min_value=0.0, max_value=360.0, value=30.0)
+C = st.number_input("Neck length (C) in cm", min_value=0.0, max_value=100.0, value=6.0, step=0.5)
+A = st.number_input("Femoral length (A) in cm", min_value=0.0, max_value=100.0, value=42.0, step=0.5)
+tf_deg = st.number_input("Femoral torsion (tf) in degrees", min_value=0.0, max_value=360.0, value=25.0, step=0.5)
+CCD_deg = st.number_input("Cervico-diaphyseal angle (CCD) in degrees", min_value=0.0, max_value=360.0, value=120.0, step=0.5)
+HKS_deg = st.number_input("HKS in degrees", min_value=0.0, max_value=360.0, value=7.0, step=0.5)
+gamma_deg = st.number_input("Abduction/adduction angle (gamma) in degrees", min_value=-180.0, max_value=180.0, value=0.0, step=0.5)
+angle_lim_deg = st.number_input("Limit angle in degrees", min_value=0.0, max_value=360.0, value=10.0, step=0.5)
+psi_deg = st.number_input("Psi angle in degrees", min_value=0.0, max_value=360.0, value=30.0, step=0.5)
 
 # Chart display
 st.subheader("Chart Based on Parameters")
-
 
 def generate_chart(C, A, tf_deg, CCD_deg, HKS_deg, gamma_deg, angle_lim_deg, psi_deg):
     # Conversion of angles to radians
@@ -116,6 +116,9 @@ def generate_chart(C, A, tf_deg, CCD_deg, HKS_deg, gamma_deg, angle_lim_deg, psi
     # Calculate and display the beta angle
     beta = angle_lim_deg - psi_deg
     st.write(f"The beta angle must not exceed: {beta}°")
+
+if st.button("Generate Chart"):
+    generate_chart(C, A, tf_deg, CCD_deg, HKS_deg, gamma_deg, angle_lim_deg, psi_deg)
 
 
 if st.button("Generate Chart"):
