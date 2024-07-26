@@ -19,7 +19,7 @@ if 'image_index' not in st.session_state:
     st.session_state.image_index = 0
 
 def resize_image(image, size=(400, 400)):
-    return image.resize(size, Image.ANTIALIAS)
+    return image.resize(size, Image.Resampling.LANCZOS)
 
 def next_image():
     st.session_state.image_index = (st.session_state.image_index + 1) % len(images)
@@ -116,10 +116,6 @@ def generate_chart(C, A, tf_deg, CCD_deg, HKS_deg, gamma_deg, angle_lim_deg, psi
     # Calculate and display the beta angle
     beta = angle_lim_deg - psi_deg
     st.write(f"The beta angle must not exceed: {beta}°")
-
-if st.button("Generate Chart"):
-    generate_chart(C, A, tf_deg, CCD_deg, HKS_deg, gamma_deg, angle_lim_deg, psi_deg)
-
 
 if st.button("Generate Chart"):
     generate_chart(C, A, tf_deg, CCD_deg, HKS_deg, gamma_deg, angle_lim_deg, psi_deg)
