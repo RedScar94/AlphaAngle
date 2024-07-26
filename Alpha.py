@@ -41,14 +41,14 @@ with col3:
 
 # Parameter input
 st.subheader("Parameter Input")
-C = st.number_input("Neck length (C) in cm", min_value=0.0, max_value=100.0, value=6.0, step=0.5)
-A = st.number_input("Femoral length (A) in cm", min_value=0.0, max_value=100.0, value=42.0, step=0.5)
-tf_deg = st.number_input("Femoral torsion (tf) in degrees", min_value=0.0, max_value=360.0, value=25.0, step=0.5)
+C = st.number_input("Neck length in cm", min_value=0.0, max_value=100.0, value=6.0, step=0.5)
+A = st.number_input("Femoral length in cm", min_value=0.0, max_value=100.0, value=42.0, step=0.5)
+tf_deg = st.number_input("Femoral torsion in degrees", min_value=0.0, max_value=360.0, value=25.0, step=0.5)
 CCD_deg = st.number_input("Cervico-diaphyseal angle (CCD) in degrees", min_value=0.0, max_value=360.0, value=120.0, step=0.5)
 HKS_deg = st.number_input("HKS in degrees", min_value=0.0, max_value=360.0, value=7.0, step=0.5)
 gamma_deg = st.number_input("Abduction/adduction angle (gamma) in degrees", min_value=-180.0, max_value=180.0, value=0.0, step=0.5)
-angle_lim_deg = st.number_input("Limit angle in degrees", min_value=0.0, max_value=360.0, value=10.0, step=0.5)
-psi_deg = st.number_input("Psi angle in degrees", min_value=0.0, max_value=360.0, value=30.0, step=0.5)
+angle_lim_deg = st.number_input("Limit angle in degrees before probable Hip Dislocation", min_value=0.0, max_value=360.0, value=10.0, step=0.5)
+psi_deg = st.number_input("Xi angle in degrees", min_value=0.0, max_value=360.0, value=30.0, step=0.5)
 
 # Chart display
 st.subheader("Chart Based on Parameters")
@@ -119,3 +119,4 @@ def generate_chart(C, A, tf_deg, CCD_deg, HKS_deg, gamma_deg, angle_lim_deg, psi
 
 if st.button("Generate Chart"):
     generate_chart(C, A, tf_deg, CCD_deg, HKS_deg, gamma_deg, angle_lim_deg, psi_deg)
+st.write("Look at the corresponding alpha angle on the graph above.")
